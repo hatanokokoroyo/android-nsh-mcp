@@ -1,0 +1,19 @@
+{
+  "name": "android-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Android device control plane + NSH development loop, exposed as an MCP server",
+  "bin": { "android-mcp": "./src/mcp/server.ts" },
+  "scripts": {
+    "start": "node src/mcp/server.ts",
+    "doctor": "node scripts/doctor.ts",
+    "smoke": "node scripts/smoke.ts"
+  },
+  "engines": { "node": ">=22.18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "pngjs": "^7.0.0",
+    "zod": "^3.25.76"
+  }
+}
