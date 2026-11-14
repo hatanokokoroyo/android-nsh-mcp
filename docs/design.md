@@ -84,6 +84,6 @@ ADBKeyboard 细节：`am broadcast -a ADB_INPUT_B64 --es msg <base64>`，输入�
 
 ## 9. 待验证 / 未决
 
-- NSH 应用的 `testID` 具体落到 `resource-id` 还是 `content-desc`：M1 的 `findByTestId` 两者都试，需用真实 NSH 应用确认后收敛。
+- NSH 应用的 `testID` 具体落到 `resource-id` 还是 `content-desc`：M1 的 `findByTestId` 两者都试。**已用 hello world 验证**：无 testID 时文本节点的 `resource-id` 为空、`text` 有值；`onPress` 映射为可点的 `Button` 壳。待有真实应用后再确认 testID 的落点。
 - 长文本输入（>200 字符）在 ADBKeyboard 下的稳定性，以及是否需要分片。
 - 多设备/无线调试场景：`adb connect` 掉线后的自动重连策略（当前只报错提示）。

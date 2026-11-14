@@ -54,6 +54,25 @@ host.handle("dev.text", ({ text }) => { /* 写入目标输入框 */ })
 
 **应用侧要求**：每个交互行为验证点（按钮、输入框、列表项、Tab）都要有 `testID`；命名用 `kebab-case` 表达语义，如 `login-submit`、`todo-item-3`、`settings-toggle-dark`。渲染层（Tailwind 类名、布局层级）可以随便改，`testID` 不能随便改——它是 agent 与 UI 之间的稳定接口。
 
+
+## 实测观测：NSH 组件的元素形态（2026-11-14，API 37）
+
+用 `nsh init --template ts` 的 hello world 在真机跑通后，uiautomator dump 得到的映射：
+
+```
+n2 android.view.ViewGroup "0" {}        @578,1195   ← <Text>{count()}</Text>
+n3 Button "" {click}                    @578,1375   ← <View onPress> 的可点壳（clickable 在它身上）
+n4 android.view.ViewGroup "Tap" {}      @578,1375   ← 里面的 <Text>Tap</Text>
+```
+
+三条要记住：
+
+1. **`onPress` 渲染成可点的 `Button` 壳**，文本节点是它的子节点 —— 判定「能不能点」要看外层 `Button {click}`，不要只看文本节点。
+2. 文本节点的 `text` 属性有值、`resource-id` 为空（未设 testID 时）。所以按文本定位在英文界面可行，但**文案一变就断**，必须靠 testID。
+3. 设了 `testID` 后应出现在 `resource-id`（形如 `com.longbridge.nsh.host:id/<testId>`），`ui({ idContains })` / `waitFor({ testId })` 依赖这一点；首次给真实应用加 testID 时要复核一次。
+
+推论到定位策略：**testID 打在 `onPress` 所在的那个可点元素上**，而不是内部文本上。
+
 ## 代码风格
 
 - TypeScript 用 **可擦除语法**（Node 直接运行，无构建）：不用 `enum`/`namespace`/参数属性。
