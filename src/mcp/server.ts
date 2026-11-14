@@ -20,7 +20,7 @@ const fail = (e: unknown) => ({
 });
 
 const server = new McpServer({
-  name: "android-mcp",
+  name: "android-nsh-mcp",
   version: "0.1.0",
 });
 

@@ -1,4 +1,4 @@
-# AGENTS.md — android-mcp 项目约定
+# AGENTS.md — android-nsh-mcp 项目约定
 
 ## 定位
 

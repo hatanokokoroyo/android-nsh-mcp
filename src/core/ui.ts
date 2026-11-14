@@ -41,7 +41,7 @@ function parseBounds(v?: string): { x: number; y: number; w: number; h: number }
 
 /** dump 一份 window_dump.xml（先落盘再 cat，避免 exec-out 截断大 XML） */
 export async function dumpXml(serial: string): Promise<string> {
-  const path = "/sdcard/android-mcp-window.xml";
+  const path = "/sdcard/android-nsh-mcp-window.xml";
   const d = await adb(["shell", `uiautomator dump --compressed ${path}`], { serial, timeoutMs: 30_000 });
   if (d.code !== 0 && !/dumped to/i.test(d.out)) {
     throw new Error(`uiautomator dump 失败：${(d.err || d.out).trim()}`);

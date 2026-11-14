@@ -1,4 +1,4 @@
-# android-mcp
+# android-nsh-mcp
 
 Android 设备控制面 + NSH 开发回路的 **MCP server**（stdio）。
 
@@ -44,7 +44,7 @@ node scripts/smoke.ts
 {
   "mcpServers": {
     "android": {
-      "command": "/home/kokoro/project/android-mcp/scripts/serve.sh",
+      "command": "/home/kokoro/project/android-nsh-mcp/scripts/serve.sh",
       "description": "Android 设备控制面 + NSH 开发回路：截屏/元素树/点击/输入/logcat/装应用",
       "timeout": 120,
       "env": { "ANDROID_HOME": "/home/kokoro/Android/Sdk" }

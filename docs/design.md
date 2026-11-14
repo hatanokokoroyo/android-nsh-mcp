@@ -16,7 +16,7 @@
 
 - 形态 1（独立 MCP，stdio）→ 可被 pi / Claude Code / opencode 等复用。
 - 内部形态 3（core 库 + 薄适配）→ 以后加 pi extension 或 HTTP 版只加适配层。
-- 仓库独立：`~/project/android-mcp`（命名不绑定 pi）。
+- 仓库独立：`~/project/android-nsh-mcp`（命名不绑定 pi）。
 
 ## 3. 连接模型：Windows 持有 adb server，WSL 复用（零 USB 转发）
 

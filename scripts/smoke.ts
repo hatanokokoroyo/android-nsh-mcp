@@ -41,8 +41,8 @@ await t("doctor", async () => {
 
 const shot = await t("screenshot", () => screenshot(serial, { maxDim: 800 }));
 if (shot) {
-  writeFileSync("/tmp/android-mcp-smoke.png", shot.png);
-  record("  image", `${shot.width}x${shot.height} ${Math.round(shot.bytes / 1024)}KB → /tmp/android-mcp-smoke.png`);
+  writeFileSync("/tmp/android-nsh-mcp-smoke.png", shot.png);
+  record("  image", `${shot.width}x${shot.height} ${Math.round(shot.bytes / 1024)}KB → /tmp/android-nsh-mcp-smoke.png`);
 }
 
 const snap = await t("ui dump", () => ui.snapshot(serial, { limit: 8, minSize: 8 }));

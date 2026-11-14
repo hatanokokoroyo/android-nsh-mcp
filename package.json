@@ -1,10 +1,10 @@
 {
-  "name": "android-mcp",
+  "name": "android-nsh-mcp",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "description": "Android device control plane + NSH development loop, exposed as an MCP server",
-  "bin": { "android-mcp": "./src/mcp/server.ts" },
+  "bin": { "android-nsh-mcp": "./src/mcp/server.ts" },
   "scripts": {
     "start": "node src/mcp/server.ts",
     "doctor": "node scripts/doctor.ts",
