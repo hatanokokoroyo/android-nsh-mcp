@@ -59,6 +59,20 @@ node scripts/smoke.ts
 
 优先级：`$ADB_BIN` → `$ANDROID_HOME/platform-tools/adb` → `$HOME/Android/Sdk/platform-tools/adb` → `/usr/lib/android-sdk` → `PATH` 里的 `adb`。
 
+## adb server 端口发现
+
+连接目标优先级：`$ANDROID_MCP_ADB_SERVER_SOCKET` → `$ADB_SERVER_SOCKET` → `$ANDROID_ADB_SERVER_PORT` → 自动发现。
+
+自动发现不假设 server 一定在 `5037`（Windows/WSL 争端口时经常被换到 `5038`/`5039`）：
+
+- 候选端口为 `5037–5040`，再加上 Windows 上 `adb.exe -L tcp:<port>` 进程命令行里的非标准端口；
+- 先用 `000chost:version` 做 adb 协议握手，确认是 adb server 后才执行 `adb devices`（避免打到非 adb 端口时挂住）；
+- 选中第一个有 ready 设备的 server 并缓存；设备列表为空时自动重探一次；
+- WSL 下绝不主动启动本地 server，避免 mirrored 模式与 Windows 抢 `5037`；
+- 显式配置优先：显式 endpoint 不可达时只报错，不静默回退。
+
+`doctor` 会列出每个候选端口的 adb/设备状态，以及 WSL 与 Windows 两侧 adb 的版本差异。
+
 ## 环境依赖
 
 - **Android SDK**：`platform-tools`（`adb`）。本仓库只用 adb，不需要 Gradle/Android Studio。

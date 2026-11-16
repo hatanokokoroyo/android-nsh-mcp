@@ -17,6 +17,14 @@ line("wslconfig", r.environment.wslconfig);
 line("networkingMode", r.environment.networkingMode);
 line("mirrored", r.environment.mirrored);
 line("adbServer", r.environment.adbServer);
+line("endpoint", `${r.environment.endpoint} (${r.environment.endpointSource ?? "default"})`);
+line("windows adb", r.environment.windowsAdb ? `${r.environment.windowsAdb.version ?? "?"} ${r.environment.windowsAdb.bin}` : "-");
+
+console.log("== 候选端口 ==");
+for (const c of r.environment.candidates) {
+  const devices = c.devices.map((d) => `${d.serial}(${d.state})`).join(", ") || "无";
+  line(c.endpoint, `adb=${c.adb}  devices=${devices}${c.error ? `  error=${c.error}` : ""}`);
+}
 
 console.log("== 设备 ==");
 for (const d of r.devices) line(d.serial, `${d.state} model=${d.model ?? "?"} transport=${d.transportId ?? "?"}`);

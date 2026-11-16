@@ -36,6 +36,11 @@ await t("doctor", async () => {
   const d = await adb.doctor(serial);
   record("  reverse", d.reverse.supported ? "supported" : `not supported (${d.reverse.note})`);
   record("  adbServer", `${d.environment.adbServer} mirrored=${d.environment.mirrored}`);
+  record("  endpoint", `${d.environment.endpoint} (${d.environment.endpointSource ?? "default"})`);
+  record(
+    "  candidates",
+    d.environment.candidates.map((c) => `${c.endpoint}:${c.devices.length}`).join(", "),
+  );
   return d;
 });
 

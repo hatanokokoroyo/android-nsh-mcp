@@ -15,7 +15,7 @@ export type ExecResult = {
 export function run(
   file: string,
   args: string[],
-  opts: { timeoutMs?: number; cwd?: string } = {},
+  opts: { timeoutMs?: number; cwd?: string; env?: Record<string, string | undefined> } = {},
 ): Promise<ExecResult> {
   const timeoutMs = opts.timeoutMs ?? 30_000;
   return new Promise((resolve) => {
@@ -28,6 +28,7 @@ export function run(
         maxBuffer: 64 * 1024 * 1024,
         encoding: "buffer" as never,
         cwd: opts.cwd,
+        env: opts.env ?? process.env,
       },
       (err, stdout, stderr) => {
         const code = err ? Number((err as { code?: number }).code ?? 1) : 0;
